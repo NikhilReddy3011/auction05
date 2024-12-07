@@ -1,0 +1,87 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}AUCTIONS{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="{% static 'auctions/styles.css' %}" rel="stylesheet">
+        <link href="{% static 'auctions/cards.css' %}" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+        <style>
+            .navbar {
+                background-color: #FFA500; /* Orange navbar */
+            }
+            .navbar-nav {
+                display: flex; /* Ensures the items are arranged horizontally */
+                justify-content: center; /* Centers the nav items */
+                width: 100%;
+            }
+            .nav-item {
+                margin-right: 20px; /* Adds space between the items */
+            }
+            .nav-link {
+                color: #ffffff; /* White text for the links */
+            }
+            .nav-link:hover {
+                color: #000000; /* Black text on hover */
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1 align="center">REAL TIME BIDDING</h1>
+        <div style="display: flex; justify-content: flex-end;">
+            {% if user.is_authenticated %}
+                SIGNED USER :  <strong>{{ user.username }}</strong>.
+            {% else %}
+                LOGGED OUT.
+            {% endif %}
+        </div>
+
+        <!-- Horizontal navbar with orange background -->
+        <nav class="navbar navbar-expand-lg">
+            <a class="navbar-brand text-dark" href="{% url 'auctions:index' %}">Auctions</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'auctions:index' %}">Active Listings</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'auctions:category_list' %}">Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'auctions:add' %}">Add Item</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'auctions:watchlist' %}">Watchlist</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'auctions:auctions_history' %}">Auctions History</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'auctions:login' %}">Log In</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'auctions:register' %}">Register</a>
+                        </li>
+                    {% endif %}
+                </ul>
+                <!-- Log Out button positioned to the top-right -->
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Log Out</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <hr>
+        {% block body %}
+        {% endblock %}
+    </body>
+</html>

@@ -1,0 +1,15 @@
+body {
+    padding: 10px;
+}
+.col-lg.table-header{
+    text-align: center;
+}
+.custom-background {
+    background-color: #f0f8ff; /* Light blue background */
+    background-image: url("{% static 'auctions/background.jpg' %}"); /* Add a background image if desired */
+    background-size: cover; /* Make the background image cover the entire page */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent the background image from repeating */
+    min-height: 100vh; /* Ensure the background spans the full viewport height */
+}
+
